@@ -1,29 +1,40 @@
-from __future__ import annotations
+"""Class Board as the chess board."""
 
-from typing import Optional
+from __future__ import annotations
 
 from piece import Piece
 
 
 class Board:
-    """Represent an 8x8 chess board."""
+    """Chess board."""
 
     def __init__(self) -> None:
-        # Create an empty 8x8 board
-        self.board: list[list[Optional[Piece]]] = [[None for _ in range(8)] for _ in range(8)]
+        """Initialize an empty 8x8 board."""
+        self.board: list[list[Piece | None]] = [
+            [None for _ in range(8)] for _ in range(8)
+        ]
 
-    def get_piece(self, row: int, col: int) -> Optional[Piece]:
-        # Return piece at given square
+    def get_piece(self, row: int, col: int) -> Piece | None:
+        """Return the piece at the given square."""
         return self.board[row][col]
 
-    def set_piece(self, row: int, col: int, piece: Optional[Piece]) -> None:
-        # Place piece at given square
+    def set_piece(self, row: int, col: int, piece: Piece | None) -> None:
+        """Place a piece at the given square."""
         self.board[row][col] = piece
 
-    def move_piece(self, start_row: int, start_col: int, end_row: int, end_col: int) -> bool:
-        # Move piece if move is legal
+    def move_piece(
+        self,
+        start_row: int,
+        start_col: int,
+        end_row: int,
+        end_col: int,
+    ) -> bool:
+        """Move a piece if the requested move is legal."""
         moving_piece = self.board[start_row][start_col]
-        if moving_piece is not None and moving_piece.is_move_legal(self, end_row, end_col):
+        if (
+            moving_piece is not None
+            and moving_piece.is_move_legal(self, end_row, end_col)
+        ):
             self.board[end_row][end_col] = moving_piece
             moving_piece.set_position(end_row, end_col)
             self.board[start_row][start_col] = None
@@ -31,7 +42,7 @@ class Board:
         return False
 
     def is_game_over(self, print_fn=print) -> bool:
-        # Check whether both kings still exist
+        """Return whether one king has been captured."""
         white_king = False
         black_king = False
         for row in self.board:
@@ -51,7 +62,7 @@ class Board:
         return False
 
     def clear(self) -> None:
-        # Remove all pieces
+        """Remove all pieces from the board."""
         for row in range(8):
             for col in range(8):
                 self.board[row][col] = None
@@ -64,7 +75,7 @@ class Board:
         end_col: int,
         is_black: bool,
     ) -> bool:
-        # Check bounds, source piece, and valid destination
+        """Validate source and destination squares for a move."""
         in_bounds = (
             0 <= start_row < 8
             and 0 <= start_col < 8
@@ -81,15 +92,35 @@ class Board:
         destination = self.board[end_row][end_col]
         return destination is None or destination.get_is_black() != is_black
 
-    def verify_adjacent(self, start_row: int, start_col: int, end_row: int, end_col: int) -> bool:
-        # Check if destination is one square away
+    def verify_adjacent(
+        self,
+        start_row: int,
+        start_col: int,
+        end_row: int,
+        end_col: int,
+    ) -> bool:
+        """Return whether destination is adjacent to source."""
         return (
-            (start_row == end_row or start_row + 1 == end_row or start_row - 1 == end_row)
-            and (start_col == end_col or start_col + 1 == end_col or start_col - 1 == end_col)
+            (
+                start_row == end_row
+                or start_row + 1 == end_row
+                or start_row - 1 == end_row
+            )
+            and (
+                start_col == end_col
+                or start_col + 1 == end_col
+                or start_col - 1 == end_col
+            )
         )
 
-    def verify_horizontal(self, start_row: int, start_col: int, end_row: int, end_col: int) -> bool:
-        # Check clear horizontal path
+    def verify_horizontal(
+        self,
+        start_row: int,
+        start_col: int,
+        end_row: int,
+        end_col: int,
+    ) -> bool:
+        """Return whether a horizontal path is clear."""
         if start_row != end_row:
             return False
         for col in range(min(start_col, end_col) + 1, max(start_col, end_col)):
@@ -97,8 +128,14 @@ class Board:
                 return False
         return True
 
-    def verify_vertical(self, start_row: int, start_col: int, end_row: int, end_col: int) -> bool:
-        # Check clear vertical path
+    def verify_vertical(
+        self,
+        start_row: int,
+        start_col: int,
+        end_row: int,
+        end_col: int,
+    ) -> bool:
+        """Return whether a vertical path is clear."""
         if start_col != end_col:
             return False
         for row in range(min(start_row, end_row) + 1, max(start_row, end_row)):
@@ -106,8 +143,14 @@ class Board:
                 return False
         return True
 
-    def verify_diagonal(self, start_row: int, start_col: int, end_row: int, end_col: int) -> bool:
-        # Check clear diagonal path
+    def verify_diagonal(
+        self,
+        start_row: int,
+        start_col: int,
+        end_row: int,
+        end_col: int,
+    ) -> bool:
+        """Return whether a diagonal path is clear."""
         changed_row = abs(start_row - end_row)
         changed_col = abs(start_col - end_col)
         if changed_row != changed_col:
@@ -122,7 +165,7 @@ class Board:
         return True
 
     def __str__(self) -> str:
-        # Return printable board
+        """Return a printable board representation."""
         out = [" " + "".join(f" {i}" for i in range(8))]
         for row in range(8):
             cells = []
