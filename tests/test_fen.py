@@ -1,7 +1,7 @@
 """Tests for FEN loading and board state transitions."""
 
-from cli_chess.board import Board
-from cli_chess.fen import Fen
+from board import Board
+from fen import Fen
 
 
 def test_fen_load_places_expected_pieces() -> None:
