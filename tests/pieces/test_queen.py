@@ -1,7 +1,7 @@
 """Test for the Queen class."""
 
-from src.board import Board
-from src.piece import Piece
+from board import Board
+from piece import Piece
 
 
 def test_queen_movement_directions() -> None:

@@ -1,7 +1,7 @@
 """Test for the Rook class."""
 
-from src.board import Board
-from src.piece import Piece
+from board import Board
+from piece import Piece
 
 
 def test_rook_horizontal_and_vertical_movement() -> None:

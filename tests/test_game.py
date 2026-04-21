@@ -1,6 +1,6 @@
 """Tests for CLI game loop behavior."""
 
-from src.game import run_game
+from game import run_game
 
 def test_run_game_invalid_input_format() -> None:
     """Non-numeric input should not crash and should prompt the user."""

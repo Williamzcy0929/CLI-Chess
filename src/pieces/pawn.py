@@ -1,7 +1,5 @@
 """Class Pawn."""
 
-from board import Board
-
 class Pawn:
     """Class Pawn."""
     def __init__(self, row: int, col: int, is_black: bool) -> None:

@@ -1,7 +1,7 @@
 """Test for the Pawn class."""
 
-from src.board import Board
-from src.piece import Piece
+from board import Board
+from piece import Piece
 
 
 def test_pawn_move_one_step_forward() -> None:
