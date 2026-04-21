@@ -1,6 +1,6 @@
 """FEN loader for Board instances."""
 
-from .piece import Piece
+from piece import Piece
 
 
 class Fen:
