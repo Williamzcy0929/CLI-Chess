@@ -8,6 +8,7 @@ class Fen:
 
     @staticmethod
     def load(fen: str, board) -> None:
+        """Load the FEN string into the board."""
         rank = 0
         square = 0
         mapping = {

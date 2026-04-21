@@ -2,6 +2,7 @@
 
 from game import run_game
 
+
 def test_run_game_invalid_input_format() -> None:
     """Non-numeric input should not crash and should prompt the user."""
     outputs: list[str] = []
