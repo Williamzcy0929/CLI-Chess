@@ -6,7 +6,7 @@ import sys
 from pathlib import Path
 
 
-def run_game() -> None:
+def CLI_Chess() -> None:
     """Run the CLI chess game."""
     repo_root = Path(__file__).resolve().parent
     src_dir = repo_root / "src"
@@ -18,4 +18,4 @@ def run_game() -> None:
     run_game()
 
 if __name__ == "__main__":
-    run_game()
+    CLI_Chess()
