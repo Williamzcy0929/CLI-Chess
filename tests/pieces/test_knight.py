@@ -3,6 +3,7 @@
 from board import Board
 from piece import Piece
 
+
 def test_knight_move_legal() -> None:
     """Test knight legal L-shape moves."""
     board = Board()
