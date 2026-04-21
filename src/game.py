@@ -2,8 +2,8 @@
 
 from __future__ import annotations
 
-from .board import Board
-from .fen import Fen
+from board import Board
+from fen import Fen
 
 STARTING_FEN = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR"
 
