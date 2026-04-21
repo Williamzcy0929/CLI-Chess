@@ -3,6 +3,7 @@
 from board import Board
 from piece import Piece
 
+
 def test_king_move_legal() -> None:
     """Test king moves one square in any direction."""
     board = Board()
