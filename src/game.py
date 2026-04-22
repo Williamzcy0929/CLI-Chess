@@ -61,6 +61,8 @@ def run_game(input_fn=input, print_fn=print, starting_fen: str = STARTING_FEN, m
                 break
             black_turn = not black_turn
             turns_played += 1
+        except StopIteration:
+            break
         except Exception:
             print_fn("Invalid Input or Illegal movement!")
 
