@@ -16,7 +16,7 @@ To run the game on a local machine, first clone the repository from GitHub and c
 ```bash
 git clone https://github.com/Williamzcy0929/CLI-Chess.git
 cd CLI-Chess
-python3 -m venv .venv
+python -m venv .venv
 source .venv/bin/activate
 ```
 
@@ -69,16 +69,16 @@ The game ends when a **king is captured** (the side that lost its king loses). U
 
 ### Running Tests
 
-Install pytest (for example `python3 -m pip install pytest`), then from the repo root:
+Install pytest (for example `pip install pytest`), then from the repo root:
 
 ```bash
-python3 -m pytest
+python -m pytest
 ```
 
 Run a test for a specific module. For example, to run the test for the game interface, please run:
 
 ```bash
-python3 -m pytest tests/test_game.py
+python -m pytest tests/test_game.py
 ```
 
 #### Test Cases
