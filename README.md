@@ -7,14 +7,14 @@ A simple 2-player, command-line chess game implemented by Python.
 ### Requirements
 
 - Vanilla [Python 3 Environment](https://www.python.org/downloads/). No third-party library is needed to run the game.
-- A terminal that supports **Unicode** chess symbols (most terminal apps in Windows, MacOS, and Linux do). If pieces look like boxes, switch to a font with better Unicode support.
+- A terminal that supports **Unicode** chess symbols (most terminal apps in Windows, MacOS, and Linux do). If pieces look like boxes, switch to a font with better Unicode support. This game is developed and visually verified in **light mode**. However, if the users use the **dark mode**, the perceived black/white piece colors may look reversed between players.
 
 ### How to Start
 
 From the **repository root** (the folder that contains `chess.py`):
 
 ```bash
-python3 chess.py
+python chess.py
 ```
 
 ### How to Play
