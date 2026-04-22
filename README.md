@@ -1,13 +1,13 @@
 # CLI-Chess
 
-A simple 2-player, command line chess game implemented by Python.
+A simple 2-player, command-line chess game implemented by Python.
 
 ## User Guidance
 
 ### Requirements
 
 - Vanilla [Python 3 Environment](https://www.python.org/downloads/). No third-party library is needed to run the game.
-- A terminal that supports **Unicode** chess symbols (most terminal apps in Windows, MacOS, and Linux do). If pieces look like boxes, switch to a font with a better Unicode support.
+- A terminal that supports **Unicode** chess symbols (most terminal apps in Windows, MacOS, and Linux do). If pieces look like boxes, switch to a font with better Unicode support.
 
 ### How to Start
 
@@ -19,7 +19,7 @@ python3 chess.py
 
 ### How to Play
 
-- **Two players** take turns on the **same** computer and terminal window. There is no online PVP or AI opponent features supported.
+- **Two players** take turns on the **same** computer and the **same** terminal window. No online PVP or AI opponent features are supported.
 - **White moves first**, then Black, alternating each successful move.
 - After each successful move, the board is printed with **row indices 0–7** on the left and **column indices 0–7** along the top. At the standard start, **row 0** is Black’s back rank and **row 7** is White’s back rank; **column 0** is the **a-file** and **column 7** is the **h-file**.
 
@@ -74,32 +74,32 @@ python3 -m pytest tests/test_game.py
 
 #### Test Cases
 
-- `tests/test_game.py` (CLI game loop via mocked input/output, no GUI interaction):
-  - A marginal case where the player input is non-numeric text and the game should reject it without crashing.
-  - A marginal case where the source and destination squares are the same and the move should be rejected.
-  - A marginal case where one coordinate is out of bounds and the move should be rejected.
-  - A marginal case where the player attempts to capture their own piece and the move should be rejected.
+- `tests/test_game.py` (CLI game loop via mocked input/output, **no CLI interaction is needed**):
+  - A marginal case where the player input is non-numeric text, and the game should reject it without crashing.
+  - A marginal case where the source and destination squares are the same, and the move should be rejected.
+  - A marginal case where one coordinate is out of bounds, and the move should be rejected.
+  - A marginal case where the player attempts to capture their own piece, and the move should be rejected.
 
-- `tests/test_board.py` (board-level helper validations):
-  - A normal case where source and destination are valid for a black piece on black's turn.
-  - A normal case where source and destination are valid for a white piece on white's turn.
-  - A normal case where destination has an opponent piece and capture is allowed by color validation.
+- `tests/test_board.py` (board-level helper functions):
+  - A normal case where the source and destination are valid for a black piece on black's turn.
+  - A normal case where the source and destination are valid for a white piece on white's turn.
+  - A normal case where the destination has an opponent piece, and capture is allowed by color validation.
   - A normal case where horizontal path checking returns true for a clear path.
   - A normal case where vertical path checking returns true for a clear path.
   - A normal case where diagonal path checking returns true for a clear path.
   - A normal case where adjacent-square checking returns true for horizontal, vertical, diagonal neighbors, and the same square.
-  - An error case where the source piece color does not match the active player turn.
+  - An error case where the source piece color does not match the active player's turn.
   - An error case where source coordinates are out of bounds.
   - An error case where destination coordinates are out of bounds.
   - An error case where the source square is empty.
-  - An error case where destination is occupied by a same-color piece.
+  - An error case where the destination is occupied by a same-color piece.
   - An error case where horizontal path checking fails due to a blocker.
   - An error case where vertical path checking fails due to a blocker.
   - An error case where diagonal path checking fails due to a blocker.
   - An error case where horizontal/vertical/diagonal validation is called with incompatible geometry and should return false.
   - An error case where adjacent-square checking is used on a non-neighbor square and should return false.
 
-- `tests/test_fen.py` (FEN loading, move application, and game-over checks):
+- `tests/test_fen.py` (FEN loading, move application, basic chess rules, and game-over checks):
   - A normal case where FEN loading places expected pieces on exact board squares.
   - A normal case where FEN character mapping to Unicode chess symbols is correct (white king and black king).
   - A normal case where FEN digits correctly map to consecutive empty squares.
@@ -107,10 +107,10 @@ python3 -m pytest tests/test_game.py
   - A normal case where a successful move clears the source square and sets the destination square.
   - A normal case where a moved piece keeps its character and updates internal row/column fields.
   - A normal case where the game is not over when both kings are present.
-  - A marginal case where loading a new FEN should clear previously loaded board state.
-  - An error case where the move source square is empty and move execution should return false.
-  - An error case where a piece is asked to move illegally and move execution should return false.
-  - An error case where a failed move must keep the board unchanged at source and destination.
+  - A marginal case where loading a new FEN should clear the previously loaded board state.
+  - An error case where the move source square is empty, and the move execution should return false.
+  - An error case where a piece is asked to move illegally, and the move execution should return false.
+  - An error case where a failed move must keep the board unchanged at the source and destination.
   - A marginal case where the game is over because one king is missing (both missing-white and missing-black variants are tested).
 
 - `tests/pieces/test_pawn.py` (pawn movement rules):
@@ -127,7 +127,7 @@ python3 -m pytest tests/test_game.py
   - A normal case where a rook moves horizontally and vertically along clear paths.
   - A normal case where a rook captures an enemy piece on a clear straight path.
   - An error case where a rook attempts non-straight movement.
-  - An error case where a rook attempts to capture a same-color piece.
+  - An error case where a rook attempts to capture a piece of the same color.
   - An error case where a rook path is blocked by an intervening piece.
 
 - `tests/pieces/test_knight.py` (knight movement rules):
@@ -135,27 +135,27 @@ python3 -m pytest tests/test_game.py
   - A normal case where a knight captures an enemy on a legal destination square.
   - A normal case where a knight can jump over an intervening piece.
   - An error case where a knight attempts non-L-shape movement.
-  - An error case where a knight attempts to capture a same-color piece.
+  - An error case where a knight attempts to capture a piece of the same color.
 
 - `tests/pieces/test_bishop.py` (bishop movement rules):
   - A normal case where a bishop moves diagonally on a clear path.
   - A normal case where a bishop captures an enemy on a diagonal square.
   - An error case where a bishop attempts non-diagonal movement.
   - An error case where a bishop attempts to capture a same-color piece.
-  - An error case where a bishop diagonal path is blocked.
+  - An error case where a bishop's diagonal path is blocked.
 
 - `tests/pieces/test_queen.py` (queen movement rules):
   - A normal case where a queen moves horizontally, vertically, and diagonally on clear paths.
-  - A normal case where a queen captures an enemy on a legal clear path.
+  - A normal case where a queen captures an enemy on a legal, clear path.
   - An error case where a queen attempts movement that is neither straight nor diagonal.
-  - An error case where a queen attempts to capture a same-color piece.
+  - An error case where a queen attempts to capture a piece of the same color.
   - An error case where a queen path is blocked by an intervening piece.
 
 - `tests/pieces/test_king.py` (king movement rules):
   - A normal case where a king moves one square in horizontal, vertical, and diagonal directions.
   - A normal case where a king captures an adjacent enemy piece.
   - An error case where a king attempts to move more than one square.
-  - An error case where a king attempts to capture a same-color piece.
+  - An error case where a king attempts to capture a piece of the same color.
   - A marginal case where a distant destination remains illegal even when an unrelated blocker exists on board.
 
 ## Gen-AI Usage
@@ -168,4 +168,4 @@ The class `Fen` was generated by `Cursor Compressor 2` under the supervision of 
 
 - Zhuozhe Wu: Implemented the board and the Forsyth–Edwards Notation (FEN) and their corresponding tests.
 - William Zhao: Implemented the logic for all chess pieces and their corresponding tests.
-- Jixiao Liu: Implemented the logic of the game and its corresponding test, as well as the command line UI.
+- Jixiao Liu: Implemented the logic of the game and its corresponding test, as well as the command-line UI.
